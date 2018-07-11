@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import '../background.jpeg';
+import Cinema from './Cinema';
+import Movie from './Movie';
+import Seat from './Seat'
 import{
     Card,
     CardImg,
@@ -21,77 +24,50 @@ class CinemaHomePage extends Component {
     {
         super(props);
         this.state ={
-            cinemas: []
+            movies: []
         }
-        axios.get('/api/cinemas').then(res => {
-                this.state.cinemas = res.data;
+        axios.get('/api/movies').then(res => {
+                this.setState({movies: res.data});
             });
-            console.log(this.state.cinemas);
     }
+    
     render(){
+        const {movies} = this.state ;
+
     return(
         <div background="./background.img">
-        <Container>
+         <Card inverse style={{ backgroundColor: 'rgba(6,4,4,0)' }}>
+        <Container style={{width: 'initial'}}>
+                <Row >
+                    {
+                            [1,2,3,4,5].map((value) => {
+                            return(
+                                <Seat bookingStatus={true} isSelected={false} seatNo={value} />
+                            );
+                        })
+                    }
+                </Row>
+                    
             <Row>
-                <Col sm={{ size: '6' }}>
-                    <div>{this.state.cinemas}</div>
-                    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                    <CardBody style={{ backgroundColor: 'darkcyan' }}>
-                        <CardTitle>Escape Cinemas</CardTitle>
-                        <CardSubtitle>Royapetta,Chennai</CardSubtitle>
-                    </CardBody>
-                    <img width="100%" src="https://media-cdn.tripadvisor.com/media/photo-s/06/ce/01/64/escape-cinemas.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardText>A Superior Sensory and Social cinematic experience, Escape offers seamless service and a wealth of amenities. Escape is a culmination of style, innovation and passion and redefines the cinema experience by presenting entertainment in a setting like never before.</CardText>
-                        <Button color="primary" size="sm" >What is Showing</Button>{' '}
-                    </CardBody>
-                    </Card>
-                </Col>
-                <Col sm={{ size: '6' }}>
-                    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                    <CardBody style={{ backgroundColor: 'darkcyan' }}>
-                        <CardTitle>Escape Cinemas</CardTitle>
-                        <CardSubtitle>Royapetta,Chennai</CardSubtitle>
-                    </CardBody>
-                    <img width="100%" src="https://media-cdn.tripadvisor.com/media/photo-s/06/ce/01/64/escape-cinemas.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardText>A Superior Sensory and Social cinematic experience, Escape offers seamless service and a wealth of amenities. Escape is a culmination of style, innovation and passion and redefines the cinema experience by presenting entertainment in a setting like never before.</CardText>
-                        <Button color="primary" size="sm" >What is Showing</Button>{' '}
-                    </CardBody>
-                    </Card>
-                </Col>
+            {   
+                    [1,2,3,4,5].map((value) => {
+                    return(
+                        <Seat bookingStatus={true} isSelected={false} seatNo={value} />
+                    );
+                })
+            }
+            </Row>
+            <Row>
+            {   
+                    [1,2,3].map((value) => {
+                    return(
+                        <Seat bookingStatus={true} isSelected={false} seatNo={value} />
+                    );
+                })
+            }
             </Row>
         </Container>
-        <Container>   
-            <Row>
-                <Col sm={{ size: '6' }}>
-                    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                    <CardBody style={{ backgroundColor: 'darkcyan' }}>
-                        <CardTitle>Escape Cinemas</CardTitle>
-                        <CardSubtitle>Royapetta,Chennai</CardSubtitle>
-                    </CardBody>
-                    <img width="100%" src="https://media-cdn.tripadvisor.com/media/photo-s/06/ce/01/64/escape-cinemas.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardText>A Superior Sensory and Social cinematic experience, Escape offers seamless service and a wealth of amenities. Escape is a culmination of style, innovation and passion and redefines the cinema experience by presenting entertainment in a setting like never before.</CardText>
-                        <Button color="primary" size="sm" >What is Showing</Button>{' '}
-                    </CardBody>
-                    </Card>
-                </Col>
-                <Col sm={{ size: '6' }}>
-                    <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                    <CardBody style={{ backgroundColor: 'darkcyan' }}>
-                        <CardTitle>Escape Cinemas</CardTitle>
-                        <CardSubtitle>Royapetta,Chennai</CardSubtitle>
-                    </CardBody>
-                    <img width="100%" src="https://media-cdn.tripadvisor.com/media/photo-s/06/ce/01/64/escape-cinemas.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardText>A Superior Sensory and Social cinematic experience, Escape offers seamless service and a wealth of amenities. Escape is a culmination of style, innovation and passion and redefines the cinema experience by presenting entertainment in a setting like never before.</CardText>
-                        <Button color="primary" size="sm" >What is Showing</Button>{' '}
-                    </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+        </Card>
       </div>
     );
 }

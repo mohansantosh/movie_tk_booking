@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 
 
 const cinema = require('./routes/api/cinemas');
+const movie = require('./routes/api/movies')
 //DB config
 
 const db = require('./config/keys').mongoURI;
@@ -23,6 +24,7 @@ mongoose
 const port = process.env.PORT || 5000
 
 app.use('/api/cinemas',cinema);
+app.use('/api/movies',movie);
 app.listen(port,() => console.log("Server started on port 5000"));
 
         
