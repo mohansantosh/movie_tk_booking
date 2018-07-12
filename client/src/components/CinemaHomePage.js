@@ -3,6 +3,8 @@ import '../background.jpeg';
 import Cinema from './Cinema';
 import Movie from './Movie';
 import Seat from './Seat'
+import ScreenLayout from './ScreenLayout';
+import Booking from './Booking';
 import{
     Card,
     CardImg,
@@ -35,39 +37,11 @@ class CinemaHomePage extends Component {
         const {movies} = this.state ;
 
     return(
-        <div background="./background.img">
-         <Card inverse style={{ backgroundColor: 'rgba(6,4,4,0)' }}>
-        <Container style={{width: 'initial'}}>
-                <Row >
-                    {
-                            [1,2,3,4,5].map((value) => {
-                            return(
-                                <Seat bookingStatus={true} isSelected={false} seatNo={value} />
-                            );
-                        })
-                    }
-                </Row>
-                    
-            <Row>
-            {   
-                    [1,2,3,4,5].map((value) => {
-                    return(
-                        <Seat bookingStatus={true} isSelected={false} seatNo={value} />
-                    );
-                })
-            }
-            </Row>
-            <Row>
-            {   
-                    [1,2,3].map((value) => {
-                    return(
-                        <Seat bookingStatus={true} isSelected={false} seatNo={value} />
-                    );
-                })
-            }
-            </Row>
-        </Container>
-        </Card>
+        <div background="./public/background.jpg">
+        <Booking/>
+        <div>
+            <img src= "https://img.spicinemas.in/resources/images/screen-this-way.png" />
+        </div>
       </div>
     );
 }
