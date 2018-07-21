@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 //Create our schema
 
 const CinemaSchema = new Schema({
+    id: mongoose.Schema.ObjectId,
     name:{
         type: String
     },
@@ -19,5 +20,5 @@ const CinemaSchema = new Schema({
     }
 });
 
-module.exports = Cinema = mongoose.model('cinema',CinemaSchema);
+module.exports = Cinema = mongoose.model('Cinema',CinemaSchema);
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema({
+    id: mongoose.Schema.ObjectId,
     name:{
         type:String
     },
@@ -21,4 +22,4 @@ const movieSchema = new Schema({
 });
 
 
-module.exports = Movie = mongoose.model('movie',movieSchema);
+module.exports = Movie = mongoose.model('Movie',movieSchema);

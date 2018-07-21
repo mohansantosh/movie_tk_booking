@@ -36,4 +36,17 @@ router.delete('/:id', (req,res) => {
         .catch(err => res.status(404).json({success: false}));
 });
 
+
+
+router.get('/:cinemaId',(req,res) =>{
+    Show.find({cinema: {_id: req.params.cinemaId}}).
+    populate('cinema').
+    populate('movie')
+    .then((shows) => 
+    {
+		res.json(shows);
+    });
+}
+
+);
 module.exports = router;

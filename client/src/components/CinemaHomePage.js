@@ -5,6 +5,9 @@ import Movie from './Movie';
 import Seat from './Seat'
 import ScreenLayout from './ScreenLayout';
 import Booking from './Booking';
+import MovieList from './MovieList';
+import ShowAllMovies from './ShowAllMovies'
+
 import{
     Card,
     CardImg,
@@ -18,6 +21,10 @@ import{
     Row,
     Col,
 } from 'reactstrap';
+
+import{
+    Carousel
+} from 'react-materialize';
 
 import axios from 'axios';
 
@@ -38,10 +45,8 @@ class CinemaHomePage extends Component {
 
     return(
         <div background="./public/background.jpg">
-        <Booking/>
-        <div>
-            <img src= "https://img.spicinemas.in/resources/images/screen-this-way.png" />
-        </div>
+        <ShowAllMovies />
+        
       </div>
     );
 }

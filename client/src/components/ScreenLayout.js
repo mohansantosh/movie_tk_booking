@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {
     Row,
-    Card,
-    Container,
     Col
+} from 'react-bootstrap';
+
+import {
+    Card,
+    Container
 } from 'reactstrap';
 
 import Seat from './Seat'
