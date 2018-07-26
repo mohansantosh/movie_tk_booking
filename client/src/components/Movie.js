@@ -4,21 +4,12 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import{
     Card,
-    CardImg,
-    CardText,
     CardBody,
-    CardTitle,
     CardSubtitle,
-    CardLink,
-    Button,
-    Container,
-    Row,
     Col,
 } from 'reactstrap';
 
-import {Router,Route} from 'react-router';
-import App from './AppNavbar'
-
+import './loader.css'
 
 class Movie extends Component {
     constructor(props){
@@ -40,10 +31,10 @@ class Movie extends Component {
          <Col sm={{ size: '2' }}>
             <Card inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
               <CardBody style={{ backgroundColor: '#00588B' }} height={{height:'64px'}}>
-                  <CardSubtitle>{this.props.movie.name}</CardSubtitle>
+                  <CardSubtitle className='font-size'>{this.props.movie.name}</CardSubtitle>
               </CardBody>
               <Link to={`/listing/${this.state.movieId}`} activeClassName="active">
-                 <img width="100%" src={this.props.movie.small_image} alt="Card image cap" />
+                 <img width="100%" src={this.props.movie.small_image} />
                </Link>  
           </Card>
         </Col>

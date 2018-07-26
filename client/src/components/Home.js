@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {
   Carousel
-} from 'react-bootstrap';
-import Link from 'react-router-dom/Link';
+} from 'react-materialize';
+import { Container } from 'reactstrap';
 
 export default class Home extends Component {
   constructor(props, context) {
@@ -29,35 +29,13 @@ export default class Home extends Component {
 
     return (
     <div>
-         <Carousel
-        activeIndex={index}
-        direction={direction}
-        onSelect={this.handleSelect}
-      >
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="./image-2.jpg" />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="./image-2.jpg" />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="./image-2.jpg" />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <Container style = {{paddingTop: '30px'}}>
+          <Carousel options={{ fullWidth: true , duration: 50, indicators: true, noWrap: false}}>
+            <a href='./listing/5b4b138b84d68a51553bc1d4'><img src = './image-1.jpg'></img></a>
+            <a href='./listing/5b4b137284d68a51553bc1d3'><img src = './image-2.jpg'></img></a>
+            <a href='./listing/5b4b137284d68a51553bc1d3'><img src = './image-3.jpg'></img></a>
+          </Carousel>
+      </Container>
     </div>
     );
   }

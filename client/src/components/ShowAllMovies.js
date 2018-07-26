@@ -4,11 +4,15 @@ import {
     Preloader,
     Row,
     Col,
-    Carousel,
-    Container
-} from 'react-materialize';
+    Card,
 
+} from 'react-materialize';
+import {
+    Container
+} from 'reactstrap';
 import Movie from './Movie';
+import Date from './Date';
+import './loader.css'
 export default class ShowAllMovies extends Component {
     constructor(props){
         super(props);
@@ -36,6 +40,14 @@ export default class ShowAllMovies extends Component {
     return (
       <div>
         <Container>
+            <Container style={{marginTop: "25px"}}>
+                
+                <Card inverse style = {{backgroundColor: 'rgba(23,162,184,0)'}} className="text-left">
+                    <Row>
+                    <Col ><Date /></Col>
+                    </Row>
+                </Card>
+            </Container>
         <Row>
             {
                 (movies !== null) ? (
@@ -47,7 +59,7 @@ export default class ShowAllMovies extends Component {
                 })
              ) : (
                 <Col s={4}>
-                    <Preloader size='big'/>
+                    <Preloader className = "top" size='big'/>
                 </Col>
            )
           }

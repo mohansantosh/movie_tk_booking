@@ -9,13 +9,14 @@ import {
     CardTitle,
     CardSubtitle,
     Row,
-    Col,
-    Button
+    Col
 } from 'reactstrap';
 
 import {
-    Preloader
+    Preloader,
+    Button
 } from 'react-materialize';
+import './loader.css';
 class Booking extends Component {
 
   constructor(props){
@@ -89,18 +90,18 @@ class Booking extends Component {
                     <Container style={{paddingTop: '20px'}}>
                     {
 
-                    this.state.totalPrice > 0 ? (<Link to = {{pathname: '/confirmbooking' ,state: { showDetails: `${data}`}}}> <Button  size="lg" color="success" className='btn-xs'>Confirm Booking</Button></Link>)
-                        : (<Button size = "lg" color="danger" disabled> Confirm Booking</Button>)
+                    this.state.totalPrice > 0 ? (<Link to = {{pathname: '/confirmbooking' ,state: { showData: {data}, selectedSeats: `${this.state.selectedSeats}`,amount: `${this.state.totalPrice}`}}}> <Button  size="lg" color="success" className='green font-size'>Confirm Booking</Button></Link>)
+                        : (<Button size = "lg" color="danger" disabled className ='font-size' > Confirm Booking</Button>)
                     }
                     </Container>
                 </Col>
             </Row>
             </Container>
-            <ScreenLayout addSelectedSeat={this.addSelectedSeat} removeSelectedSeat={this.removeSelectedSeat} /></div>)
+            <ScreenLayout showId ={this.state.showId} addSelectedSeat={this.addSelectedSeat} removeSelectedSeat={this.removeSelectedSeat} /></div>)
             : ( 
                 <div>
                     <Col s={4}>
-                        <Preloader size='big'/>
+                        <Preloader className = 'top' size='big'/>
                     </Col>
                 </div>) 
     )

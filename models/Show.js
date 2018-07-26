@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const Movie = require('./Movie');
-const Cinema = require('./Cinema');
+
 const Schema = mongoose.Schema;
 
 const showSchema = new Schema({
@@ -21,4 +20,4 @@ const showSchema = new Schema({
     }
 });
 
-module.exports = Show = mongoose.model('show',showSchema);
+module.exports = Show = mongoose.model('Show',showSchema);

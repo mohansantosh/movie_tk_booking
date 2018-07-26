@@ -3,10 +3,10 @@ import {Switch,Route} from 'react-router-dom'
 
 import ShowAllMovies from './ShowAllMovies';
 import MovieList from './MovieList';
-import ScreenLayout from './ScreenLayout';
 import Booking from './Booking';
 import ConfirmBooking from './ConfirmBooking'
 import Home from './Home'
+import Success from './Success';
 
 const Main = () => (
     <main>
@@ -16,6 +16,7 @@ const Main = () => (
             <Route exact path = '/seatselection/:id' component = {Booking}/>
             <Route exact path = '/confirmbooking' component = {ConfirmBooking} />
             <Route exact path = '/allmovies' component = {ShowAllMovies} />
+            <Route exact path = '/success' component = {Success} />
         </Switch>
 
 

@@ -20,7 +20,7 @@ import  {
     NavItem,
     Icon
 } from 'react-materialize';
-
+import './loader.css'
 import {
     Link
 } from 'react-router-dom';
@@ -38,7 +38,7 @@ class AppNavbar extends Component{
             isOpen: !this.state.isOpen
         })};
 
-    handleMovieClick = () => {
+    handleMovieClick() {
         <Link to = {'/allmovies'} />
     }
     
@@ -46,11 +46,11 @@ class AppNavbar extends Component{
         return(
         <div>
         <a href="/">
-            <Navbar left className='blue' fixed className='light-orange lighten-2'>
-                <img  src="./logo.png"  height="59" width="248" style={{marginRight: "-633px"}}/>
-                <NavItem><Link to = {'/'} ><Icon>home</Icon></Link></NavItem>
-                <NavItem ><Link to = {'/allmovies'} >Movies</Link></NavItem>
-                <NavItem ><Link to = {'/allmovies'} >Cinemas</Link></NavItem>
+            <Navbar left fixed className='#01579b light-blue darken-4'>
+                <img  src="./logo.png"  height="60" width="152" style = {{marginLeft: "817px"}} />
+                <NavItem href = '/' ><Icon>home</Icon></NavItem>
+                <NavItem href = '/allmovies' className='font-size'>MOVIES</NavItem>
+                <NavItem  href = '/allmovies'className='font-size'>CINEMAS</NavItem>
             </Navbar>
         </a>
         </div>

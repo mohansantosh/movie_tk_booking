@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppNavbar from './components/AppNavbar';
-import CinemaHomePage from './components/CinemaHomePage'
 import './App.css';
 import Main from './components/Main';
 

@@ -4,6 +4,7 @@ import {
     Button
 } from 'reactstrap';
 
+import './loader.css';
  class Seat extends Component {
      constructor(props){
          super(props);
@@ -34,16 +35,15 @@ import {
     render() {
         const isSeatSelected = this.state.isSelected;
         const bookingStatus = this.state.bookingStatus;
-        const seatNo = this.state.seatNo;
         return (
             <div>
             {
-                bookingStatus && seatNo !== 'A9' ? (
+                bookingStatus  ? (
                     isSeatSelected ? 
-                        (<Button size="lg" color="primary"  onClick={this.handleSeatSelection}></Button>) 
+                        (<Button size="lg" color="primary"  onClick={this.handleSeatSelection} className='seat-left-margin'></Button>) 
                         :(
-                            <Button  size = "lg" color="secondary"   onClick={this.handleSeatSelection}></Button>)
-                ):(<Button size = "lg" color="danger" disabled></Button>)
+                            <Button  size = "lg" color="secondary"   onClick={this.handleSeatSelection} className='seat-left-margin'></Button>)
+                ):(<Button size = "lg" color="danger" disabled className='seat-left-margin'></Button>)
             }
             </div>
         );

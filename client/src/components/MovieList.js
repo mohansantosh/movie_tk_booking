@@ -1,28 +1,22 @@
 import React, { Component } from 'react'
 import{
-    Container,ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-    CardBody,
-    CardSubtitle,
-    CardText,
-    Media,
-    CardImg,
-    Card,
-    CardTitle,
-    Title
+    Container
+
 } from 'reactstrap';
 
 import {
     Button,
-    Icon,
-    Dropdown,
-    NavItem,
-    Chip,
     Row,
     Col,
-    Preloader
+    Preloader,
+    Card,
+    CardImg,
+    CardTitle
 } from 'react-materialize';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './loader.css'
+import Date from './Date';
 
 export default class MovieList extends Component {
     constructor(props){
@@ -54,20 +48,18 @@ export default class MovieList extends Component {
       }
 
     movieListing(showInfo){
-        console.log("enters listing");
-        console.log(showInfo);
        return(
         <Container style={{marginTop: '30px'}}>
             <Row>
-                <Col sm={3} >
-                    <CardTitle style={{marginRight: '2.6rem',fontSize: '20px',color: 'white'}} className='text-left'>{showInfo.name}<small> A/C | DTS </small></CardTitle>
+                <Col sm={3} className='col-list-align'>
+                    <CardTitle style={{marginRight: '2.6rem',fontSize: '20px',color: 'white'}} className='text-left '>{showInfo.name}<small> A/C | DTS </small></CardTitle>
                 </Col>
                 {
                     showInfo.shows.map((show) => {
                         return(
-                            <Col sm={1} >
+                            <Col sm={1} className='btn-text-align'>
                             <Link to = {`/seatselection/${show.id}`}>
-                                <Button waves='light'  className='green' tooltip='Available'>{show.showTime}</Button>    
+                                <Button waves='light'  className='green font-size btn-text-align'>{show.showTime}</Button>    
                              </Link>   
                             </Col>
                         )
@@ -84,21 +76,14 @@ export default class MovieList extends Component {
         (data !== null) ?(
             <div>
             <Row>
-                <Col >
-                    <Card inverse style = {{backgroundColor: 'rgba(23,162,184,0)'}} >
-                    <CardTitle style={{fontSize: '40px'}}>{data.movie_description.name}</CardTitle>
-                    <CardText >English | Animation | U/A </CardText>
+                <Container>
+                    <Card className='small'
+                        header={<CardTitle image={data.movie_description.image} >{data.movie_description.name}</CardTitle>} className='card-color card-padding card-margin' >
+                        <Col ><Date /></Col>
                     </Card>
-                </Col>
+                </Container>
             </Row>
             <div>
-            <Container style={{marginTop: '30px'}}>
-                            <Col >
-                            <Card>
-                                <CardImg  src={data.movie_description.image} alt="Card image cap" />
-                            </Card>
-                            </Col>
-            </Container>
                 {
                     data.cinemas.map((showInfo) => {
                         return(
@@ -106,13 +91,10 @@ export default class MovieList extends Component {
                     })
                 }
             </div>
-            </div>) : (<div>
-                <Row>
-                    <Col s={4}>
-                        <Preloader size='big'/>
-                    </Col>
-                    </Row>
-            </div>)
+            </div>) : (<Container >
+                        <Preloader className = 'top' size='large'/>
+                        </Container>
+                  )
     )
   }    
 }

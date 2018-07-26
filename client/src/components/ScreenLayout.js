@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-    Row,
-    Col
+
 } from 'react-bootstrap';
 
 import {
+    Preloader
+} from 'react-materialize';
+import {
     Card,
-    Container
+    Container,
+    Row,
+    Col
 } from 'reactstrap';
 
 import Seat from './Seat'
+import './loader.css'
 
 export default class ScreenLayout extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state ={
-            id: this.props.theater_id,
+            showId: this.props.showId,
+            blocked_seats: null,
             screenLayout: [{
                     row: "A",
                     seats: [1,2,3,4,5,6,7,8,9,10]
@@ -67,42 +73,58 @@ export default class ScreenLayout extends Component {
                 }
             ]
         }
-/*
-        axios.get('/api/screen_layout/this.props.theater_id')
+
+
+    }
+
+    componentDidMount(){
+       const showId = this.state.showId;
+        axios.get(`/api/tickets/blocked_seats/${showId}`)
             .then((res)=>{
-                this.setState({layout_grid: res.body.layout_grid})
+                this.setState({blocked_seats: res.data})
             }
         )
-*/
+
     }
    render() {
 
     const screenLayout = this.state.screenLayout;
-    return (
-      <div>
-          <Card inverse style={{ backgroundColor: 'rgba(6,4,4,0)' }}>
-            <Container style={{width: 'initial'}}>
-            {
-                screenLayout.map(({row,seats}) => {
-                    return(
-                            <Row>
-                                <Col> {row}</Col>
-                                {
-                                    seats.map((seat) => 
-                                                <Seat bookingStatus={true} isSelected={false} seatNo={row.concat(seat)} addSelectedSeat={this.props.addSelectedSeat}  removeSelectedSeat = {this.props.removeSelectedSeat}/>
+    const blocked_seats = this.state.blocked_seats;
+    return (     
+        (blocked_seats !== null) ? (
+        <div>
+            <Card inverse style={{ backgroundColor: 'rgba(6,4,4,0)' }}>
+                <Container style={{width: 'initial'}}>
+                {
+                    screenLayout.map(({row,seats}) => {
+                        return(
+                                <Row className='seat-bottom-margin'>
+                                    <Col> {row}</Col>
+                                    {
+                                        seats.map((seat) => {
+                                                    const seatNo = row.concat(seat);
+                                                    const  bookingStatus = blocked_seats.includes(seatNo);
+                                                    return <Seat bookingStatus={!bookingStatus} isSelected={false} seatNo={seatNo} addSelectedSeat={this.props.addSelectedSeat}  removeSelectedSeat = {this.props.removeSelectedSeat}/>
 
-                                        )
-                                }
-                                <Col> {row}</Col>
-                            </Row>
-                        )
-                })
+                                        })
+                                    }
+                                    <Col> {row}</Col>
+                                </Row>
+                            )
+                    })
 
-            }
-            </Container>
-
-          </Card>
-      </div>
+                }
+                </Container>
+                <Container>
+                    <img src='https://img.spicinemas.in/resources/images/screen-this-way.png' />
+                </Container>
+            </Card>
+        </div>
+            ) : ( <div>
+                <Container width = "100%">
+                    <Preloader className = 'top' size='big'/>
+                    </Container>
+            </div>)
     )
  }
 }
