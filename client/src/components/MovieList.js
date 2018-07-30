@@ -16,7 +16,8 @@ import {
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './loader.css'
-import Date from './Date';
+import DateList from './DateList';
+import Error from './Error'
 
 export default class MovieList extends Component {
     constructor(props){
@@ -24,23 +25,78 @@ export default class MovieList extends Component {
         this.state = {
             movieId: this.props.match.params.id,
             data: null,
-            dropdownOpen: false
+            dropdownOpen: false,
+            dates: null,
+            isMovieList_empty: false,
+            selectedDate: this.props.location.state.selectedDate
         }
         this.toggle = this.toggle.bind(this);
         this.getMovieList = this.getMovieList.bind(this);
+        this.handleDateChange  = this.handleDateChange.bind(this);
     }
 
     componentDidMount(){
+
         this.getMovieList();
     }
-    getMovieList(){
-        const movieId = this.props.match.params.id
-        axios.get(`/api/movies/${movieId}`)
+
+    handleDateChange(date){
+        var dates = this.state.dates;
+        const {movieId} = this.state;
+        dates.forEach(x => {
+            if(date === x.date)
+                x.selected = true;
+            else
+                x.selected = false;
+        });
+        axios.post(`/api/movies/${movieId}`,{
+            date: date})
         .then((response) => {
-            this.setState({ 
-                data: response.data[0]
-            })});
+            var isMovieListEmpty = false
+            if(response.data.length == 0) {
+                isMovieListEmpty = true
+            }
+            this.setState({
+                selectedDate : date,
+                data: response.data.data[0],
+                dates: dates,
+                isMovieListEmpty: isMovieListEmpty,
+                dates : dates
+            })
+        })
     }
+
+    getMovieList(){
+        var dates = [];
+        var isMovieListEmpty = false;
+        var intDate;
+        const movieId = this.props.match.params.id;
+        axios.post(`/api/movies/init_movie/${movieId}`,{
+            movieDate: this.state.selectedDate
+        })
+        .then((response) => {
+            console.log( response.data);
+            dates = response.data.dates;
+             intDate = response.data.intDate.date;
+            return new Promise((resolve,reject) => {
+                axios.post(`/api/movies/${movieId}`,{
+                    date: intDate})
+                .then((response) => resolve(response))
+            })
+        }).then((response) => {
+            console.log(response);
+            if(response.data.length == 0) {
+                isMovieListEmpty = true
+            }
+            this.setState({ 
+                data: response.data.data[0],
+                dates: dates,
+                selectedDate: intDate,
+                isMovieListEmpty: isMovieListEmpty    
+             });
+        });
+    }
+
     toggle() {
         this.setState({
           dropdownOpen: !this.state.dropdownOpen
@@ -59,7 +115,7 @@ export default class MovieList extends Component {
                         return(
                             <Col sm={1} className='btn-text-align'>
                             <Link to = {`/seatselection/${show.id}`}>
-                                <Button waves='light'  className='green font-size btn-text-align'>{show.showTime}</Button>    
+                                <Button waves='light'  className='green font-size btn-text-align'>{show.formatted_time}</Button>    
                              </Link>   
                             </Col>
                         )
@@ -72,14 +128,21 @@ export default class MovieList extends Component {
    
   render() {
     const {data} = this.state;
+    const {dates} = this.state;
+    const {movie_list_empty} = this.state;
+    console.log(dates);
+    console.log(data);
       return (
+        (movie_list_empty == true)? (
+            <Error />
+        ) :
         (data !== null) ?(
             <div>
             <Row>
                 <Container>
                     <Card className='small'
                         header={<CardTitle image={data.movie_description.image} >{data.movie_description.name}</CardTitle>} className='card-color card-padding card-margin' >
-                        <Col ><Date /></Col>
+                        <Col ><DateList dates={this.state.dates} handleDateChange={this.handleDateChange}/></Col>
                     </Card>
                 </Container>
             </Row>

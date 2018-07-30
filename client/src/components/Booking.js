@@ -73,7 +73,7 @@ class Booking extends Component {
                     <Card inverse style = {{backgroundColor: 'rgba(23,162,184,0)'}} className="text-left">
                         <CardBody>
                             <CardTitle style = {{fontSize: '2.25rem'}}>{data.movie.name.concat("  ").concat(rating)}</CardTitle>
-                            <CardSubtitle>Cinema: {data.cinema.name}   |    Time: {data.showTime}</CardSubtitle>
+                            <CardSubtitle>Cinema: {data.cinema.name}   |    Time: {data.formatted_date}</CardSubtitle>
                         </CardBody>
                     </Card>
                 </Col>

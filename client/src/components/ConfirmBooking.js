@@ -22,7 +22,7 @@ export default class ConfirmBooking extends React.Component {
       totalAmount: this.props.location.state.amount,
       cinema: this.props.location.state.showData.data.cinema,
       movie: this.props.location.state.showData.data.movie,
-      showTime: this.props.location.state.showData.data.showTime,
+      showTime: this.props.location.state.showData.data.formatted_date,
       submitted: false,
       email:null,
       mobile: null,

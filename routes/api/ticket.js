@@ -31,8 +31,6 @@ ticketUnholdQueue.process(function (job, done) {
 router.post('/createticket',(req,res) => {   
     Show.find({_id: req.body.showId})
         .then((show) => {
-            console.log(">>>>>>");
-            console.log(show);
             var tickets = null;
             tickets = req.body.tickets;
             const ticket = new Ticket({
@@ -45,9 +43,8 @@ router.post('/createticket',(req,res) => {
             console.log()
             ticket.save().then((ticket) => {
                 const job = ticketUnholdQueue.createJob({ticketId: ticket._id}) ;
-                console.log("Mohan");
                 const now = new Date();
-                const delayTimestamp = now.getTime() + 300000;
+                const delayTimestamp = now.getTime() + 3000;
                 job
                 .delayUntil(delayTimestamp)
                 .save();
@@ -58,7 +55,6 @@ router.post('/createticket',(req,res) => {
 router.get('/blocked_seats/:showId',(req,res) => {
     Ticket.find({show: req.params.showId,status: { $in : ["pending","confirmed"]} })
         .then((tickets) => {
-            console.log(tickets);
             var blockedTickets = [];
             for(i = 0; i < tickets.length; i++)
             {
@@ -86,7 +82,14 @@ router.post('/submit', (req,res) => {
                 populate('cinema').
                 then((show) => {
                     console.log(show);
+                    var showDate = new Date(show.showTime);
+                    show.showTime = showDate.toLocaleTimeString('en-IN', { 
+                        weekday: 'short',
+                        day : 'numeric',
+                        month : 'short'
+                    }).replace(/:\d{2}\s/,' ');
                     ticket.show = show;
+
                     res.json(ticket);
                 })
         })

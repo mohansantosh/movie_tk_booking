@@ -44,7 +44,15 @@ router.get('/:cinemaId',(req,res) =>{
     populate('movie')
     .then((shows) => 
     {
-		res.json(shows);
+        shows.sort((a,b) => {
+            return a.showTime  - b.showTime
+        })
+        shows.forEach(show => {
+           var showDate = new Date(show.showDate);
+           show.showDate = showDate.toLocaleTimeString();
+        });
+        data = groupBy(shows);
+        res.send(data);
     });
 }
 

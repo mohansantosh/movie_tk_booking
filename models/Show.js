@@ -13,10 +13,13 @@ const showSchema = new Schema({
         Schema.Types.ObjectId, 
         ref: 'Cinema' },
     showTime: {
-        type: String
+        type: Date
     },
     showDate: {
         type: Date
+    },
+    formatted_date:{
+        type: String
     }
 });
 

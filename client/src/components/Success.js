@@ -3,6 +3,7 @@ import { Card, CardText, CardBody,
     CardTitle, Container } from 'reactstrap';
 
 import {Icon} from 'react-materialize';
+import './loader.css'
 export default class Success extends Component {
     constructor(props){
         super(props);
@@ -16,7 +17,7 @@ export default class Success extends Component {
     return (
         <div>
          <Container>
-            <Card>
+            <Card className = 'card-color'>
             <CardBody>
                 
                 <CardTitle><Icon small>check_circle</Icon>Ticket Booked Successfully Ticket Id: {successTicket._id}</CardTitle>
